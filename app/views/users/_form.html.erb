@@ -1,0 +1,76 @@
+<%= form_for @user do |form| %>
+  <% if user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+        <% user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: 'form-control' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :dob %>
+    <%= form.date_select :dob, { class: "form-control" } %>
+  </div>
+
+  <div class="field">
+    <%= form.label :gender %>
+    <%= form.text_field :gender, class: 'form-control' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.text_field :status, class: 'form-control' %>
+  </div>
+
+  <div class="field">
+    <% if !@user.new_record? %>
+      <%= form.fields_for :address do |f| %>
+      <%= f.label :address1 %>
+      <%= f.text_field :address1, class: 'form-control' %>
+
+     <%= f.label :address2 %>
+      <%= f.text_field :address2, class: 'form-control' %>
+
+      <%= f.label :district %>
+      <%= f.text_field :district, class: 'form-control' %>
+
+      <%= f.label :state %>
+      <%= f.text_field :state, class: 'form-control' %>
+
+      <%= f.label :pincode %>
+      <%= f.text_field :pincode,class: 'form-control'  %>
+    <% end %>
+    <% else %>
+      <%= form.fields_for :address, Address.new do |f| %>
+      <%= f.label :address1 %>
+      <%= f.text_field :address1, class: 'form-control' %>
+
+     <%= f.label :address2 %>
+      <%= f.text_field :address2, class: 'form-control' %>
+
+      <%= f.label :district %>
+      <%= f.text_field :district, class: 'form-control' %>
+
+      <%= f.label :state %>
+      <%= f.text_field :state, class: 'form-control' %>
+
+      <%= f.label :pincode %>
+      <%= f.text_field :pincode,class: 'form-control'  %>
+    <% end %>
+    <% end %>
+    
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
